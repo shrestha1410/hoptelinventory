@@ -4,10 +4,12 @@ export interface Room {
     bookedRooms?:number
 }
 export interface RoomsList{
-    roomsType:string,
+    roomNumber:string,
+    roomType:string,
     amenities:string,
     price:number,
-    image:string,
-    checkInTime:Date,
-    checkOutTime:Date
+    photos:string,
+    checkinTime:Date,
+    checkoutTime:Date,
+    rating :number
 }

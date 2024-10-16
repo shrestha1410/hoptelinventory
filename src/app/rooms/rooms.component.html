@@ -1,20 +1,61 @@
-<h1>Welcome to {{hotelName}}</h1>
+<!-- <h1>Welcome to {{hotelName}}</h1> -->
+ <!-- {{rooms$  |async | json}} -->
+<app-header></app-header>
+<!-- <app-header></app-header>
+<app-header></app-header>
+<app-header></app-header>
+<app-header></app-header> -->
 <div [hidden]="hidden">
+    <!-- {{roomList | json }} -->
     Number Of Rooms:
-    <div [innerText]="noOfRooms"></div>
-        {{room?.availableRooms??noOfRooms}}
-    <div *ngIf="room?.availableRooms">
-        Room list
-        <table>
-            <th>
-                <tr>RoomType</tr>
-                <tr> Amenities</tr>
-                 <tr>Price</tr>
-                 <tr>Image</tr>
-                 <tr>CheckInTime</tr>
-                 <tr>CheckOutTime</tr>
-            </th>
-        </table>
+    <div [ngStyle]="{'color':room.availableRooms? 'green' :'red'}"
+    [innerText]="noOfRooms"></div>
+        {{room.availableRooms??noOfRooms}}
     </div>
-</div>
+        <div *ngIf="selectedRoom">{{selectedRoom | json}}</div>
+        <div>
+            <button (click)="addRoom()">add Room</button>
+         </div>
+        <!-- <div *ngIf="room?.availableRooms"> -->
+            <!-- <div *ngIf="hidden"> -->
+         <!-- <app-rooms-list [roomsList]="roomList" [title]= "title"(selectedRoom)="selectRoom($event)"></app-rooms-list> -->
+         <!-- <div *ngIf="rooms$ | async">
+         <app-rooms-list [roomsList]="rooms$ |async" [title]= "title"(selectedRoom)="selectRoom($event)"></app-rooms-list> -->
+        <div *ngIf="rooms$ | async as room ">
+         <app-rooms-list [roomsList]="room" [title]= "title"(selectedRoom)="selectRoom($event)"></app-rooms-list>
+         <!-- {{roomList}} -->   <!--Room list [object Object],[object Object],[object Object]-->
+       <!-- <table class="table">
+            <tr>
+                <th>index</th>
+                <th>Even/Odd</th>
+                <th>RoomNumber</th>
+                <th>RoomType</th>
+                <th>Amenities</th>
+                <th>Price</th> 
+                <th>Image</th>
+                <th>CheckInTime</th>
+                <th>CheckOutTime</th>
+                <th>Rating</th>
+            </tr>
+            <tr [ngClass]="e? 'even' : 'odd' " *ngFor="let room of roomList | slice : 0:4,let e=even ,let o=odd, let i=index">
+                <td>{{i | percent}}</td>
+                <td>{{room.roomNumber%2==0?"even":"odd"}}</td>
+                <td>{{room.roomNumber}}</td>
+                <td>{{room.roomType}}</td>
+                <td>{{room.amenities | lowercase}}</td>
+                <td>{{room.price | currency : "INR"}}</td>
+                <td>{{room.image}}</td>
+                <td>{{room.checkInTime | date :"short"}}</td>
+                <td>{{room.checkOutTime}}</td>
+                <td>{{room.rating | number :'1.1-3' : 'en-us'}}</td>
+
+            </tr>
+        </table>  -->
+    </div> 
+
 <button (click)="toggle()">button</button>
+<button (click)="editRoom()">edit</button>
+<button (click)="deleteRoom()">delete</button>
+<h1>
+    {{totalBytes}} loaded
+</h1>
