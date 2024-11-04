@@ -1,25 +1,30 @@
-<h1>Hello </h1>
-<app-rooms></app-rooms>
+<!-- <h1>Hello </h1> -->
+<!-- <app-rooms></app-rooms>
 <app-container>
     <app-rooms></app-rooms>
     <app-employee></app-employee>
     <h1>This is from ng</h1>
-</app-container>
-<div #name>
+</app-container> -->
+<!-- <div #name>
 
-</div>
-<!-- <div [ngSwitch]="role"> 
+</div> -->
+<!-- <div [ngSwitch]="role">
     <div *ngSwitchCase="'User'">
         Welcome User
     </div>
-    <div *ngSwitchCase="'Admin'"> 
+    <div *ngSwitchCase="'Admin'">
         <app-rooms></app-rooms>
     </div>
     <div *ngSwitchDefault>
     You are not authorized to this page.
     </div>
 </div> -->
-<div>
+<!-- <div>
     <ng-template #user></ng-template>
-</div>
-
+</div> -->
+<!-- <a [href]="'rooms'">rooms</a>
+<a [href]="'employee'">employee</a> -->
+<a [routerLink]="'rooms'">rooms</a>
+<a [routerLink]="'employee'">employee</a>
+<app-app-nav></app-app-nav>
+<router-outlet></router-outlet>

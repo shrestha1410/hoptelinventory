@@ -2,7 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit,
 import { Room, RoomsList } from './Room';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { catchError, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
 import { on } from 'events';
 import { HttpEventType } from '@angular/common/http';
 
@@ -100,16 +100,22 @@ subscription! : Subscription;
     // console.log("On Change is called");
   }
   totalBytes=0;
-  error$ = Subject<String>;
+  error$= new Subject<string>;
+  getError$= this.error$.asObservable();
   // rooms$= this.roomsService.getRooms$;
   rooms$= this.roomsService.getRooms$.pipe(
     catchError((err)=>{
       console.log(err);
-      this.error$.next(err);
+      this.error$.next(err.message);
       return of([]);
     })
   );
-   ngOnInit() :void {
+
+  roomsCount$ = this.roomsService.getRooms$.pipe(
+    map((rooms) =>rooms.length)
+  )
+  
+  ngOnInit() :void {
   
   // console.log(this.roomsService.getRooms());
   this.roomsService.getphotos().subscribe((event)=>{

@@ -27,8 +27,10 @@
         <td>{{ room.checkinTime | date: 'short' }}</td>
         <td>{{ room.checkoutTime }}</td>
         <td>{{ room.rating | number: '1.1-3' : 'en-us' }}</td>
-        <td><button class="btn btn-primary" (click)="selectRoom(room)">Select</button></td>
+        <td>
+          <!-- <button class="btn btn-primary" (click)="selectRoom(room)">Select</button> -->
+         <button  class="btn btn-primary" [routerLink]="['/rooms',room.roomNumber]">book</button>
+        </td>
       </tr>
     </tbody>
   </table>
-  

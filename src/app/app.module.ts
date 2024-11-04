@@ -1,30 +1,57 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RoomsComponent } from './rooms/rooms.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RoomsListComponent } from './rooms/rooms-list/rooms-list.component';
 import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './appConfig/appconfig.service';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { requestInterceptor } from './request.interceptor';
+import { InitService } from './init.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AppNavComponent } from './app-nav/app-nav.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { HoverDirective } from './hover.directive';
+import { EmailvalidatorDirective } from './emailvalidator/emailvalidator.directive';
+import { RoomsModule } from './rooms/rooms.module';
+import { HeaderModule } from './header/header.module';
 
+function initFactory(initService:InitService){
+return ()=> initService.init();
+}
 @NgModule({
   declarations: [
     AppComponent,
-    RoomsComponent,
-    RoomsListComponent,
-    HeaderComponent,
     ContainerComponent,
     EmployeeComponent,
+    AppNavComponent,
+    NotfoundComponent,
+    LoginComponent,
+    HoverDirective,
+    EmailvalidatorDirective,
   ],
   imports: [
     BrowserModule,
+    RoomsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    FormsModule,
+    HeaderModule
   ],
   providers: [
     provideClientHydration(),
@@ -32,7 +59,15 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
         provide:APP_SERVICE_CONFIG,
         useValue:APP_CONFIG
       },
-      provideHttpClient()
+      provideHttpClient(),
+      provideHttpClient(withInterceptors([requestInterceptor])),
+      {
+        provide:APP_INITIALIZER,
+        useFactory:initFactory,
+        deps:[InitService],
+        multi:true
+      },
+      provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

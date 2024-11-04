@@ -3,7 +3,7 @@ import { RoomsListComponent } from '../rooms-list/rooms-list.component';
 import { RoomsList } from '../Room';
 import { APP_SERVICE_CONFIG } from '../../appConfig/appconfig.service';
 import { AppConfig } from '../../appConfig/appconfig.interface';
-import { HttpClient,HttpRequest } from '@angular/common/http';
+import { HttpClient,HttpHeaders,HttpRequest } from '@angular/common/http';
 import { shareReplay } from 'rxjs';
 // import { environment } from '../../../environments/environment';
 
@@ -12,6 +12,9 @@ import { shareReplay } from 'rxjs';
 })
 export class RoomsService {
   roomList:RoomsList[]=[];
+  //  headers= new HttpHeaders({
+  //   token:'sdsbjhgdshfgsdgfsdgf282517'
+  // });
   //{
   //   roomNumber:1,
   //   roomType:"claassic",
@@ -52,12 +55,16 @@ getRooms(){
      console.log(this.config.apiEndpoint);
      console.log("Room service initialized...") 
     }
-     getRooms$=this.http.get<RoomsList[]>('/api/room').pipe(
+     getRooms$=this.http.get<RoomsList[]>('/api/rooms',{
+      // headers:this.headers,
+     }).pipe(
       shareReplay(1)
      );
      
      addRoom(room:RoomsList){
-      return this.http.post<RoomsList[]>('/api/rooms',room);
+      return this.http.post<RoomsList[]>('/api/rooms',room,{
+        // headers:this.headers,
+       });
      }
      editRoom(room:RoomsList){
       return this.http.put<RoomsList[]>(`/api/rooms/${room.roomNumber}`,room);

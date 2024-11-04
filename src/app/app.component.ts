@@ -1,3 +1,4 @@
+import { InitService } from './init.service';
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, Optional, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { RoomsComponent } from './rooms/rooms.component';
 import { HeaderComponent } from './header/header.component';
@@ -23,15 +24,15 @@ export class AppComponent  implements OnInit, AfterViewInit{
     // throw new Error('Method not implemented.');
     // const componentRef=this.vcr.createComponent(RoomsComponent);
     // componentRef.instance.noOfRooms=50;
-    
+
   }
- 
+
   // role="Admin";
   // @ViewChild("user",{read:ViewContainerRef})vcr! :ViewContainerRef
 //  @ViewChild("name",{static:true}) name!: ElementRef;
- constructor( @Optional() private loggerService :LoggerService){
+ constructor( @Optional() private loggerService :LoggerService, private initService:InitService){
 // @Inject(localStorageToken) private localstorage: Storage ){
-
+console.log(initService);
  }
 }
 

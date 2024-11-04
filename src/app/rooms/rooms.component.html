@@ -14,7 +14,12 @@
     </div>
         <div *ngIf="selectedRoom">{{selectedRoom | json}}</div>
         <div>
-            <button (click)="addRoom()">add Room</button>
+            <!-- <button (click)="addRoom()">add Room</button> -->
+            <button routerLink="add">add Room</button>
+          </div>
+         <div>
+            <!-- {{getError$ | async}} -->
+             Number of Rooms :{{roomsCount$ | async}}
          </div>
         <!-- <div *ngIf="room?.availableRooms"> -->
             <!-- <div *ngIf="hidden"> -->
@@ -31,7 +36,7 @@
                 <th>RoomNumber</th>
                 <th>RoomType</th>
                 <th>Amenities</th>
-                <th>Price</th> 
+                <th>Price</th>
                 <th>Image</th>
                 <th>CheckInTime</th>
                 <th>CheckOutTime</th>
@@ -51,7 +56,7 @@
 
             </tr>
         </table>  -->
-    </div> 
+    </div>
 
 <button (click)="toggle()">button</button>
 <button (click)="editRoom()">edit</button>
@@ -59,3 +64,5 @@
 <h1>
     {{totalBytes}} loaded
 </h1>
+
+<router-outlet></router-outlet>
